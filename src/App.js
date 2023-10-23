@@ -1,23 +1,30 @@
-import logo from './logo.svg';
+import song from "./song.mp3"
 import './App.css';
+import { useRef, useState } from "react";
 
 function App() {
+
+  const [musicPlay, setMusicPlay] = useState(true);
+  const refAudio = useRef();
+
+
+  const handleMusic = () => {
+    setMusicPlay(!musicPlay);
+    musicPlay ? refAudio.current.play() : refAudio.current.pause()
+  }
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+      <audio
+        loop="loop"
+        src={song}
+        ref={refAudio}>
+      </audio>
+
+      <button onClick={handleMusic}>
+        {musicPlay ? "Play" : "Pause"}
+      </button>
     </div>
   );
 }
